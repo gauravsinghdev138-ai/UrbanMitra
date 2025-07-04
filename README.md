@@ -20,7 +20,7 @@ Civic Issue Resolver simplifies citizen-to-government communication by providing
 
 ## 🚀 Features
 
-- ✅ User Registration & Secure Login
+- ✅ User and Admin Registration & Secure Login
 - 🗺️ Interactive Location Picker (Leaflet)
 - 🔁 Real-time Status Timeline (Pending → In Progress → Resolved)
 - 🔐 Protected Routes via JWT (for both user & admin)
