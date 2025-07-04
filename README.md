@@ -36,6 +36,16 @@ Civic Issue Resolver simplifies citizen-to-government communication by providing
 
 ---
 
+---
+
+## 🌍 Live Demo
+
+- 🖥️ Frontend: [https://civic-issue-resolver.vercel.app](https://civic-issue-resolver.vercel.app)
+- 🌐 Backend API: [https://civicissue-resolver.onrender.com/api](https://civicissue-resolver.onrender.com/api)
+
+---
+
+
 ## 🧰 Tech Stack
 
 | Layer       | Technologies Used                              |
@@ -111,16 +121,19 @@ CivicIssue_Resolver/
 
 ---
 
-# .env (root for Vite)
+# root .env (Vite)
 VITE_OPENCAGE_API_KEY=your_opencage_api_key
+VITE_API_BASE_URL=https://civicissue-resolver.onrender.com/api
 
 # backend/.env
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/your_database
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_key
 CLOUDINARY_API_SECRET=your_cloudinary_secret
-SMTP_USER=your_email@example.com
-SMTP_PASS=your_email_password_or_app_password
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_gmail_app_password
+FRONTEND_URL=https://civic-issue-resolver.vercel.app
+
 
