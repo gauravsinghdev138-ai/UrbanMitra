@@ -1,27 +1,13 @@
-// src/components/Navbar.jsx
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    setDropdownOpen(false);
-    setMenuOpen(false);
-    navigate('/');
-    window.location.reload(); // Force UI refresh
-  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -34,6 +20,11 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <nav className="bg-gradient-to-r from-cyan-100 to-blue-100/80 backdrop-blur-md shadow-md px-4 py-3 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -44,7 +35,6 @@ const Navbar = () => {
           🏛 Civic Resolver
         </Link>
 
-        {/* Hamburger icon for mobile */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="sm:hidden text-2xl text-gray-700 focus:outline-none cursor-pointer"
@@ -52,7 +42,6 @@ const Navbar = () => {
           ☰
         </button>
 
-        {/* Desktop Menu */}
         <div className="hidden sm:flex gap-4 items-center">
           {user ? (
             <div className="relative" ref={dropdownRef}>
@@ -106,7 +95,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="sm:hidden mt-3 space-y-2">
           {user ? (
