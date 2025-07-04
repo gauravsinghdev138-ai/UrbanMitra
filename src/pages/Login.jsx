@@ -21,11 +21,16 @@ const Login = () => {
 
     try {
       const res = await API.post('/auth/login', form);
+
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data));
 
-      navigate(res.data.role === 'admin' ? '/admin/dashboard' : '/report');
-      window.location.reload();
+      // ✅ Use navigate only (don't reload)
+      if (res.data.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/report');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
