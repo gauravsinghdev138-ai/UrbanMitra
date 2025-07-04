@@ -10,6 +10,8 @@ const ResetPassword = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+
   const handleReset = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -20,25 +22,26 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/reset-password/${token}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password }),
-        }
-      );
+      const response = await fetch(`${API_BASE}/auth/reset-password/${token}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
 
-      const data = await res.json();
+      const data = await response.json();
+      console.log("🔁 Reset response:", data);
 
-      if (res.ok) {
+      if (response.ok) {
         setMessage("✅ Password reset successful! Redirecting to login...");
         setTimeout(() => navigate("/login"), 2000);
       } else {
         setError(data.message || "❌ Reset failed.");
       }
     } catch (err) {
-      setError("❌ Server error.");
+      console.error("❌ Reset error:", err);
+      setError("❌ Server error. Please try again.");
     }
   };
 
@@ -52,19 +55,19 @@ const ResetPassword = () => {
         <form onSubmit={handleReset} className="space-y-4">
           <input
             type="password"
-            className="w-full px-4 py-2 rounded border border-indigo-400 bg-[#0e1628] text-white placeholder-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white focus:text-black transition"
             placeholder="New Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-2 rounded border border-indigo-400 bg-[#0e1628] text-white placeholder-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white focus:text-black transition"
             required
           />
 
           <input
             type="password"
-            className="w-full px-4 py-2 rounded border border-indigo-400 bg-[#0e1628] text-white placeholder-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white focus:text-black transition"
             placeholder="Confirm New Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full px-4 py-2 rounded border border-indigo-400 bg-[#0e1628] text-white placeholder-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white focus:text-black transition"
             required
           />
 
