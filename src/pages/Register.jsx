@@ -29,9 +29,7 @@ const Register = () => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data));
 
-      res.data.role === 'admin'
-        ? navigate('/admin/dashboard')
-        : navigate('/report');
+      navigate(res.data.role === 'admin' ? '/admin/dashboard' : '/report');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     }
@@ -56,7 +54,7 @@ const Register = () => {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-green-400"
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white"
           />
 
           <input
@@ -66,7 +64,7 @@ const Register = () => {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-green-400"
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white"
           />
 
           <div className="relative">
@@ -77,10 +75,10 @@ const Register = () => {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 pr-10 focus:ring-2 focus:ring-green-400"
+              className="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white pr-10"
             />
             <span
-              className="absolute right-3 top-2 cursor-pointer text-gray-400 hover:text-white"
+              className="absolute right-3 top-2 cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? '🙈' : '👁️'}
@@ -91,7 +89,7 @@ const Register = () => {
             name="role"
             value={form.role}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-purple-400"
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white"
           >
             <option value="user">🙋 User</option>
             <option value="admin">🛠️ Admin</option>

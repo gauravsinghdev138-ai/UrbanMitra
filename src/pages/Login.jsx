@@ -21,17 +21,10 @@ const Login = () => {
 
     try {
       const res = await API.post('/auth/login', form);
-      console.log('🔐 Login response:', res.data);
-
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data));
 
-      if (res.data.role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/report');
-      }
-
+      navigate(res.data.role === 'admin' ? '/admin/dashboard' : '/report');
       window.location.reload();
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
@@ -39,9 +32,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4 transition-colors duration-300">
-      <div className="w-full max-w-sm sm:max-w-md bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-xl text-gray-900 dark:text-gray-100 transition-all duration-300">
-        <h2 className="text-3xl font-extrabold text-center mb-6 tracking-tight">🔐 Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
+      <div className="w-full max-w-sm bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl text-gray-900 dark:text-gray-100">
+        <h2 className="text-3xl font-bold text-center mb-6">🔐 Login</h2>
 
         {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
 
@@ -53,7 +46,7 @@ const Login = () => {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 rounded-lg border bg-white dark:bg-gray-700 dark:text-white"
           />
 
           <div className="relative">
@@ -64,11 +57,11 @@ const Login = () => {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 rounded-lg border bg-white dark:bg-gray-700 dark:text-white pr-10"
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-3 cursor-pointer text-gray-500 dark:text-gray-300"
+              className="absolute right-3 top-3 cursor-pointer"
             >
               {showPassword ? '🙈' : '👁️'}
             </span>
@@ -76,7 +69,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md"
           >
             Login
           </button>
