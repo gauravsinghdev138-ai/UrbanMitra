@@ -1,5 +1,3 @@
-// src/components/IssueForm.jsx
-
 import { useRef, useState } from 'react';
 import { createIssue } from '../api/issueApi';
 import LocationPicker from './LocationPicker';
@@ -33,7 +31,6 @@ const IssueForm = () => {
     e.preventDefault();
 
     const formData = new FormData();
-
     formData.append('title', form.title);
     formData.append('description', form.description);
     formData.append('category', selectedCategory);
@@ -55,7 +52,8 @@ const IssueForm = () => {
     try {
       const res = await createIssue(formData);
       alert('✅ Issue submitted successfully!');
-      console.log("✅ Server response:", res.data);
+      console.log('✅ Server response:', res.data);
+
       setForm({
         title: '',
         description: '',
@@ -66,7 +64,7 @@ const IssueForm = () => {
         coordinates: null,
       });
     } catch (err) {
-      console.error("❌ Axios error", err);
+      console.error('❌ Axios error', err);
       alert('❌ Failed to submit issue');
     }
   };
@@ -149,7 +147,7 @@ const IssueForm = () => {
 
       <input
         name="location"
-        placeholder="📍Enter the location manually(with some landmark)"
+        placeholder="📍Enter the location manually (or auto-filled)"
         value={form.location}
         onChange={handleChange}
         required
@@ -195,13 +193,11 @@ const IssueForm = () => {
                 setForm((prev) => ({
                   ...prev,
                   coordinates: { lat: loc.lat, lng: loc.lng },
+                  location: loc.address || '',
                 }));
                 setShowMap(false);
               }}
             />
-
-
-
           </div>
         </div>
       )}

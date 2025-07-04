@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ const Navbar = () => {
     setDropdownOpen(false);
     setMenuOpen(false);
     navigate('/');
-    window.location.reload(); // 🔁 Refresh UI
+    window.location.reload(); // Force UI refresh
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const Navbar = () => {
           🏛 Civic Resolver
         </Link>
 
-        {/* Hamburger for mobile */}
+        {/* Hamburger icon for mobile */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="sm:hidden text-2xl text-gray-700 focus:outline-none cursor-pointer"
@@ -105,7 +106,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="sm:hidden mt-3 space-y-2">
           {user ? (

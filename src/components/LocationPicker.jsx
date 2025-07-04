@@ -1,4 +1,3 @@
-// src/components/LocationPicker.jsx
 import { useEffect, useState } from 'react';
 import {
   MapContainer,
@@ -44,7 +43,7 @@ const SearchControl = () => {
 
     map.addControl(searchControl);
 
-    // ✨ Fix search bar + dropdown styles
+    // ✨ Fix search bar and dropdown styles
     setTimeout(() => {
       const input = document.querySelector('.leaflet-control-geosearch input');
       const results = document.querySelector('.leaflet-control-geosearch .results');
@@ -63,18 +62,18 @@ const SearchControl = () => {
         results.style.maxHeight = '200px';
         results.style.overflowY = 'auto';
         results.style.zIndex = '10000';
-      }
 
-      const items = document.querySelectorAll('.leaflet-control-geosearch .results > *');
-      items.forEach((item) => {
-        item.style.color = '#000';
-        item.style.backgroundColor = '#fff';
-        item.style.padding = '8px 10px';
-        item.style.borderBottom = '1px solid #ddd';
-        item.style.cursor = 'pointer';
-      });
+        const items = document.querySelectorAll('.leaflet-control-geosearch .results > *');
+        items.forEach((item) => {
+          item.style.color = '#000';
+          item.style.backgroundColor = '#fff';
+          item.style.padding = '8px 10px';
+          item.style.borderBottom = '1px solid #ddd';
+          item.style.cursor = 'pointer';
+        });
+      }
     }, 200);
-    
+
     return () => map.removeControl(searchControl);
   }, [map]);
 
@@ -101,6 +100,7 @@ const LocationMarker = ({ onConfirm }) => {
         const formatted = response.data.results?.[0]?.formatted;
         setAddress(formatted || 'Unknown Location');
       } catch (err) {
+        console.error('❌ Reverse geocoding failed', err);
         setAddress('❌ Failed to fetch address');
       } finally {
         setLoading(false);

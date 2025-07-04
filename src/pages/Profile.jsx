@@ -27,11 +27,14 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete('/api/auth/delete', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/delete`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');

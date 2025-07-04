@@ -1,4 +1,5 @@
 // src/pages/ReportIssue.jsx
+import { Link } from 'react-router-dom';
 import IssueForm from '../components/IssueForm';
 
 const ReportIssue = () => {
@@ -13,12 +14,12 @@ const ReportIssue = () => {
       </div>
 
       <div className="text-center mt-6">
-        <a
-          href="/issues"
+        <Link
+          to="/issues"
           className="inline-block bg-teal-500 hover:bg-teal-600 text-white px-5 py-2 rounded shadow transition cursor-pointer"
         >
           📋 View Submitted Issues
-        </a>
+        </Link>
       </div>
     </div>
   );

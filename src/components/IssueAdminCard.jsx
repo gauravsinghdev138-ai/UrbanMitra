@@ -1,4 +1,3 @@
-// src/components/IssueAdminCard.jsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -12,6 +11,11 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
+// ✅ Set up base API instance using VITE_API_BASE_URL
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 const IssueAdminCard = ({ issue, token, onStatusUpdate, onDelete }) => {
@@ -34,8 +38,8 @@ const IssueAdminCard = ({ issue, token, onStatusUpdate, onDelete }) => {
     setUpdating(true);
 
     try {
-      const res = await axios.put(
-        `/api/admin/issues/${issue._id}/status`,
+      const res = await API.put(
+        `/admin/issues/${issue._id}/status`,
         { status: newStatus },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +60,7 @@ const IssueAdminCard = ({ issue, token, onStatusUpdate, onDelete }) => {
     setDeleting(true);
 
     try {
-      await axios.delete(`/api/admin/issues/${issue._id}`, {
+      await API.delete(`/admin/issues/${issue._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('🗑️ Issue deleted successfully');
@@ -130,7 +134,7 @@ const IssueAdminCard = ({ issue, token, onStatusUpdate, onDelete }) => {
         </div>
       </div>
 
-      {/* Fullscreen Map (Rendered outside card completely) */}
+      {/* Fullscreen Map */}
       {fullscreenMap && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-[9999] flex items-center justify-center">
           <div className="relative w-full max-w-3xl h-[80vh] rounded shadow overflow-hidden">

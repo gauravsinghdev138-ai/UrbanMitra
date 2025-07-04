@@ -24,7 +24,6 @@ const IssueList = () => {
     fetchData();
   }, []);
 
-  // 🔍 Filter Logic
   useEffect(() => {
     const query = searchQuery.toLowerCase();
 
@@ -48,7 +47,6 @@ const IssueList = () => {
     setFilteredIssues(filtered);
   }, [searchQuery, categoryFilter, issues]);
 
-  // 🗑️ Remove issue after delete
   const handleDelete = (deletedId) => {
     const updated = issues.filter((i) => i._id !== deletedId);
     setIssues(updated);

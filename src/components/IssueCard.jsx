@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Fix marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -79,7 +80,6 @@ const IssueCard = ({ issue }) => {
       <div className="mt-4">
         <h4 className="text-sm font-semibold mb-2 text-cyan-300">Status Progress:</h4>
         <div className="relative flex justify-between items-center px-4">
-          {/* Timeline Bar Underneath */}
           <div className="absolute top-5 left-0 w-full h-1 bg-cyan-800 z-0 rounded-full"></div>
 
           {STATUS_STEPS.map((step, idx) => (

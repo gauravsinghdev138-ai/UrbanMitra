@@ -15,6 +15,7 @@ const Home = () => {
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4 px-2 leading-tight">
           🌍 Civic Issue Resolver
         </h1>
+
         <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 max-w-sm sm:max-w-md md:max-w-lg mb-8 px-2">
           A platform to report civic issues like garbage, streetlight, water, etc.
           Help improve your locality by raising a voice!

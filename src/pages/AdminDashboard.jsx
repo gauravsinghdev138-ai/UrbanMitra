@@ -7,13 +7,19 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [issues, setIssues] = useState([]);
   const [error, setError] = useState('');
+
   const token = localStorage.getItem('token');
 
   const fetchIssues = async () => {
     try {
-      const res = await axios.get('/api/admin/issues', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/admin/issues`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setIssues(res.data);
     } catch (err) {
       if (err.response?.status === 403) {
