@@ -2,6 +2,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+});
+
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -21,7 +25,7 @@ const Register = () => {
     setError('');
 
     try {
-      const res = await axios.post('/api/auth/register', form);
+      const res = await API.post('/auth/register', form);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data));
 
@@ -35,7 +39,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-black bg-opacity-70 border border-purple-800 rounded-lg p-8 shadow-2xl text-white space-y-6 backdrop-blur-md">
+      <div className="max-w-md w-full bg-black bg-opacity-70 border border-purple-800 rounded-lg p-8 shadow-2xl text-white space-y-6">
         <h2 className="text-3xl font-bold text-center text-green-400">📝 Register</h2>
 
         {error && (
@@ -51,8 +55,8 @@ const Register = () => {
             placeholder="👤 Name"
             value={form.name}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
             required
+            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-green-400"
           />
 
           <input
@@ -61,8 +65,8 @@ const Register = () => {
             placeholder="📧 Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
             required
+            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-green-400"
           />
 
           <div className="relative">
@@ -72,11 +76,11 @@ const Register = () => {
               placeholder="🔑 Password"
               value={form.password}
               onChange={handleChange}
-              className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 pr-10 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
               required
+              className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 pr-10 focus:ring-2 focus:ring-green-400"
             />
             <span
-              className="absolute right-3 top-2 cursor-pointer text-gray-400 hover:text-white transition"
+              className="absolute right-3 top-2 cursor-pointer text-gray-400 hover:text-white"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? '🙈' : '👁️'}
@@ -87,7 +91,7 @@ const Register = () => {
             name="role"
             value={form.role}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-400 transition cursor-pointer"
+            className="w-full p-2 rounded bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-purple-400"
           >
             <option value="user">🙋 User</option>
             <option value="admin">🛠️ Admin</option>
@@ -95,7 +99,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded transition cursor-pointer"
+            className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded"
           >
             ✅ Register
           </button>
