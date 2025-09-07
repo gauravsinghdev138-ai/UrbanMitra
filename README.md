@@ -1,4 +1,4 @@
-# 🏛️ Civic Issue Resolver
+# 🏛️ UrbanMitra
 
 > A full-stack MERN (MongoDB, Express.js, React.js, Node.js) web application that allows users to report civic problems like potholes, garbage dumps, broken streetlights, or waterlogging — along with location, image, and category — and enables the admin to manage all issues with a visual map and status tracking system.
 
