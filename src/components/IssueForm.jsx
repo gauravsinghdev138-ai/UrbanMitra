@@ -71,10 +71,13 @@ const IssueForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="max-w-xl mx-auto p-6 bg-[#1a1f2b] border border-cyan-400 rounded-2xl shadow-lg text-white backdrop-blur-md space-y-4"
-      style={{ boxShadow: '0 0 15px rgba(0, 255, 255, 0.5)' }}
-    >
+        onSubmit={handleSubmit}
+        className="max-w-xl mx-auto p-6 rounded-2xl shadow-lg text-white space-y-4 
+                  bg-transparent backdrop-blur-none border border-cyan-400/60"
+        style={{ boxShadow: "0 0 25px rgba(0, 255, 255, 0.3)" }}
+      >
+
+
       <h2 className="text-3xl font-bold text-center text-cyan-400 mb-4">
         📝 Report an Issue
       </h2>
@@ -193,7 +196,9 @@ const IssueForm = () => {
                 setForm((prev) => ({
                   ...prev,
                   coordinates: { lat: loc.lat, lng: loc.lng },
-                  location: loc.address || '',
+                  location: loc.address 
+                    ? loc.address 
+                    : `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`,
                 }));
                 setShowMap(false);
               }}

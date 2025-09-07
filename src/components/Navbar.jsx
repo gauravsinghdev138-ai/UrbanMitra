@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -16,60 +16,64 @@ const Navbar = () => {
         setMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <nav className="bg-gradient-to-r from-cyan-100 to-blue-100/80 backdrop-blur-md shadow-md px-4 py-3 sticky top-0 z-50">
+   <nav className="bg-black text-white px-6 py-4 shadow-lg sticky top-0 z-50 backdrop-blur-md">
+
       <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* 🌍 Brand */}
         <Link
           to="/"
-          className="text-2xl font-bold text-cyan-700 drop-shadow-sm cursor-pointer hover:scale-105 transition duration-200"
+          className="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-green-300 to-cyan-300 bg-clip-text text-transparent hover:scale-110 transition duration-300"
         >
-          🏛 Civic Resolver
+          UrbanMitra
         </Link>
 
+        {/* ☰ Mobile Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden text-2xl text-gray-700 focus:outline-none cursor-pointer"
+          className="sm:hidden text-3xl focus:outline-none"
         >
           ☰
         </button>
 
-        <div className="hidden sm:flex gap-4 items-center">
+        {/* Links (Desktop) */}
+        <div className="hidden sm:flex gap-6 items-center">
           {user ? (
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="bg-white/80 backdrop-blur-sm border border-cyan-300 px-4 py-2 rounded text-sm font-medium text-gray-800 hover:bg-cyan-100 transition cursor-pointer"
+                className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition"
               >
                 👋 {user.name}
               </button>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white/90 backdrop-blur-md shadow-xl rounded border border-cyan-300 z-50 overflow-hidden">
+                <div className="absolute right-0 mt-3 w-52 bg-white/90 text-gray-800 rounded-lg shadow-xl overflow-hidden">
                   <Link
                     to="/report"
-                    className="block px-4 py-2 text-sm hover:bg-cyan-50 text-gray-800 cursor-pointer transition"
+                    className="block px-4 py-2 text-sm hover:bg-cyan-50 transition"
                     onClick={() => setDropdownOpen(false)}
                   >
                     📝 Report Issue
                   </Link>
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm hover:bg-cyan-50 text-gray-800 cursor-pointer transition"
+                    className="block px-4 py-2 text-sm hover:bg-cyan-50 transition"
                     onClick={() => setDropdownOpen(false)}
                   >
                     👤 Profile
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 cursor-pointer transition"
+                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 transition"
                   >
                     🚪 Logout
                   </button>
@@ -77,16 +81,16 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <Link
                 to="/login"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded cursor-pointer transition"
+                className="px-5 py-2 bg-blue-500 hover:bg-blue-600 rounded-full shadow-md transition"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 text-sm rounded cursor-pointer transition"
+                className="px-5 py-2 bg-green-500 hover:bg-green-600 rounded-full shadow-md transition"
               >
                 Register
               </Link>
@@ -95,27 +99,28 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Links (Mobile) */}
       {menuOpen && (
         <div className="sm:hidden mt-3 space-y-2">
           {user ? (
-            <div ref={dropdownRef} className="space-y-2">
+            <div ref={dropdownRef} className="space-y-2 bg-white/10 rounded-lg p-3">
               <Link
                 to="/report"
-                className="block bg-cyan-50 px-4 py-2 rounded text-sm text-gray-800 hover:bg-cyan-100 cursor-pointer"
+                className="block text-white hover:text-cyan-300 transition"
                 onClick={() => setMenuOpen(false)}
               >
                 📝 Report Issue
               </Link>
               <Link
                 to="/profile"
-                className="block bg-cyan-50 px-4 py-2 rounded text-sm text-gray-800 hover:bg-cyan-100 cursor-pointer"
+                className="block text-white hover:text-cyan-300 transition"
                 onClick={() => setMenuOpen(false)}
               >
                 👤 Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left bg-red-100 text-red-700 px-4 py-2 rounded text-sm hover:bg-red-200 cursor-pointer"
+                className="block w-full text-left text-red-400 hover:text-red-500 transition"
               >
                 🚪 Logout
               </button>
@@ -124,14 +129,14 @@ const Navbar = () => {
             <div className="space-y-2">
               <Link
                 to="/login"
-                className="block bg-blue-600 text-white px-4 py-2 rounded text-sm text-center hover:bg-blue-700 cursor-pointer"
+                className="block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="block bg-green-600 text-white px-4 py-2 rounded text-sm text-center hover:bg-green-700 cursor-pointer"
+                className="block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center"
                 onClick={() => setMenuOpen(false)}
               >
                 Register
